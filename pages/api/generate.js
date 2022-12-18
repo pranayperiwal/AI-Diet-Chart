@@ -40,11 +40,16 @@ const generateAction = async (req, res) => {
       const calories = mealCalProtein.split(", ")[0];
       const protein = mealCalProtein.split(", ")[1];
 
+      const dietRquirements =
+        req.body.dietRestriction == "non-vegetarian"
+          ? ""
+          : req.body.dietRestriction;
+
       let mealSpecificPrompt = "";
       if (protein) {
         mealSpecificPrompt =
           "Prepare a " +
-          req.body.dietRestriction +
+          dietRquirements +
           " " +
           mealName +
           " meal with " +
@@ -54,14 +59,12 @@ const generateAction = async (req, res) => {
       } else {
         mealSpecificPrompt =
           "Prepare a " +
-          req.body.dietRestriction +
+          dietRquirements +
           " " +
           mealName +
           " meal with " +
           calories;
       }
-
-      console.log(mealSpecificPrompt);
 
       const mealCompletion = await openai.createCompletion({
         model: "text-davinci-003",
