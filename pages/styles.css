@@ -156,6 +156,18 @@ body {
   padding-left: 20px;
 }
 
+.number-of-meals-dropdown {
+  border-width: 0 0 3px 0;
+  border-color: rgba(255, 255, 255, 0.1);
+  border-style: solid;
+  background-color: rgba(202, 193, 193, 0.31);
+  width: 60%;
+  height: 35px;
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding-left: 20px;
+}
+
 .prompt-box {
   border-bottom-width: 1px;
   border-color: rgba(255, 255, 255, 0.1);

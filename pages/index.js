@@ -1,8 +1,8 @@
+import { useState } from "react";
 import Head from "next/head";
 import NumberInput from "../components/NumberInput";
 import DietTable from "../components/DietTable";
 import GenerateButton from "../components/GenerateButton";
-import { useState } from "react";
 
 const Home = () => {
   const [dietTable, setDietTable] = useState(null);
@@ -15,6 +15,9 @@ const Home = () => {
 
   const changeDietRadio = (e) => {
     setDietRadio(e.target.value);
+  };
+  const changeMealCount = (e) => {
+    setMealCount(e.target.value);
   };
 
   const callGenerateEndpoint = async () => {
@@ -36,10 +39,9 @@ const Home = () => {
 
     const data = await response.json();
     const { baseMealOutput, allMeals } = data;
-    console.log();
-    console.log("OpenAI replied...", baseMealOutput.text);
+    // console.log();
+    // console.log("OpenAI replied...", baseMealOutput.text);
 
-    // setApiOutput(`${baseMealOutput.text}`);
     setDietTable(allMeals);
 
     setIsGenerating(false);
@@ -64,12 +66,21 @@ const Home = () => {
       </div>
       <div className="prompt-container">
         <div className="prompt-input">
-          <NumberInput
-            placeholderInput="4"
-            title="number of meals"
-            stateVar={mealCount}
-            userInput={setMealCount}
-          />
+          <div className="meal-basic-input">
+            <p>number of meals: </p>
+            <select
+              value={mealCount}
+              className="number-of-meals-dropdown"
+              onChange={changeMealCount}
+            >
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+          </div>
 
           <NumberInput
             placeholderInput="2000"
@@ -77,7 +88,6 @@ const Home = () => {
             stateVar={calories}
             userInput={setCalories}
           />
-
           <NumberInput
             placeholderInput="100"
             title="target protein"
